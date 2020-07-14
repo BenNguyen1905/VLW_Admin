@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+}
+
+.Tittle{
+  font-size: calc(10px + 2vmin);
+  color: red;
+  background-color: yellow;
+}
+
+.Table{
+  background-color: white;
+}
+#students td, #students th {
+  border: 1px solid #fff;
+  padding: 8px;
+}
+
+.App-logo {
+  align-items: center;
+}
+
+.App-header {
+  background-color: white;
+  min-height: 100vh;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
