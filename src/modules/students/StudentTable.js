@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import studentSvc from './student-service';
+import studentSvc from './StudentService';
+import walletService from '../wallets/WalletService';
 
 
 export default class StudentTable extends Component{
@@ -20,10 +21,18 @@ export default class StudentTable extends Component{
 
     async _loadData() {
         const students = await studentSvc.getList();
+        const wallets = await walletService.getList();
+        students.forEach(st => {
+            const wallet = wallets.find(w => w.key === st.viId);
+            if(wallet){
+                st.sodu = wallet.sodu;
+            }
+        })
         this.setState({
             students,
-        })
+        });
     }
+
     
     render() {
     
@@ -49,7 +58,7 @@ export default class StudentTable extends Component{
                 <tbody>
                     {
                        students.map(st => (
-                        <tr>
+                        <tr key={st.maSv}>
                             <td>{st.maSv}</td>
                             <td>{st.tenSv}</td>
                             <td>{st.lop}</td>

@@ -10,7 +10,6 @@ export default class StudentEditPage extends Component{
           params
         }
       } = this.props;
-console.log({props: this.props})
       return(
           <Row>
           <Col as="h3" md={12} className="mt-5 mb-4">Cập Nhật Tài Khoản</Col>

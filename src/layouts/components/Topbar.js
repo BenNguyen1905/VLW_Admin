@@ -8,6 +8,9 @@ import {
 } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
+
+// import StudentSearchList from "../../modules/students/StudentSearchList";
+
 const Topbar = () => (
   <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="#home">Admin-Page</Navbar.Brand>
@@ -27,9 +30,10 @@ const Topbar = () => (
           </NavDropdown> */}
         </Nav>
         <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+          <FormControl  type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-success">Search</Button>
-        </Form>
+        </Form> 
+        
       </Navbar.Collapse>
       </Navbar>
 );

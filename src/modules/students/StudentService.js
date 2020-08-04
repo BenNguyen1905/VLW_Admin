@@ -5,6 +5,7 @@ class StudentService {
     constructor() {
         this._dbRoot = firebase.database().ref();
         this._dbStudents = this._dbRoot.child('SINHVIEN');
+        this._dbWallets = this._dbRoot.child('TAIKHOANVI');
     }
 
     getList() {
@@ -21,6 +22,7 @@ class StudentService {
                 resolve(students);
             });
         });
+        
     }
 
     getById(id) {
@@ -28,9 +30,24 @@ class StudentService {
             this._dbStudents.child(id).once('value', (snapShot) => {
                 // console.log({ snapShot });
                 const student = snapShot.val();
-                resolve(student);
+
+                this._dbWallets.child(student.viId).once('value', walletSnapshot => {
+                    const wallet = walletSnapshot.val();
+                    student.sodu = wallet.sodu;
+                    resolve(student);
+                });
             });
         });
+    }
+
+    async create(model) {
+        const { sodu, ...student } = model;
+        const newWalletRef = this._dbWallets.push();
+        await newWalletRef.set({ sodu })
+        const newStudentRef = this._dbStudents.push();
+        student.viId = newWalletRef.key;
+        await newStudentRef.set(student);
+        return newStudentRef.key;
     }
 }
 

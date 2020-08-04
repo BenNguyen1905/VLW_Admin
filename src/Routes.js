@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import DefaultLayout from "./layouts/DefaultLayout"
 import StudentListPage from "./pages/students/StudentListPage";
 import StudentEditPage from "./pages/students/StudentEditPage";
+import StudentCreatePage from "./pages/students/StudentCreatePage";
 
 
 function routeWithLayout(Layout) {
@@ -26,6 +27,7 @@ const Routes = () => (
                 <Redirect to="/students" />
             </Route>
 			<RouteDefault path="/students" exact component={StudentListPage} />
+			<RouteDefault path="/students/create" exact component={StudentCreatePage} />
 			<RouteDefault path="/students/:id" exact component={StudentEditPage} />
 
 			{/* <RouteDefault
