@@ -5,6 +5,7 @@ import DefaultLayout from "./layouts/DefaultLayout"
 import StudentListPage from "./pages/students/StudentListPage";
 import StudentEditPage from "./pages/students/StudentEditPage";
 import StudentCreatePage from "./pages/students/StudentCreatePage";
+import LoginPage from "./pages/auth/LoginPage";
 
 
 function routeWithLayout(Layout) {
@@ -26,6 +27,7 @@ const Routes = () => (
 			<Route path="/" exact>
                 <Redirect to="/students" />
             </Route>
+			<RouteDefault path="/students/login" exact component={LoginPage}/>
 			<RouteDefault path="/students" exact component={StudentListPage} />
 			<RouteDefault path="/students/create" exact component={StudentCreatePage} />
 			<RouteDefault path="/students/:id" exact component={StudentEditPage} />

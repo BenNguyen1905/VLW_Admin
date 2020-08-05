@@ -38,6 +38,7 @@ class DetailForm extends Component {
       khoa: data.khoa || 'CNTT',
       viId: data.viId,
       sodu: data.sodu,
+      matKhau: data.matKhau,
     };
     this.onItemChange = this.itemChange.bind(this);
   }
