@@ -7,9 +7,9 @@ import studentSvc from '../../modules/students/StudentService';
 export default class StudentEditPage extends Component {
 
     _addStudent = async (formValues) => {
-        const newStudentKey = await studentSvc.create(formValues);
+        const newStudent = await studentSvc.create(formValues);
         // debugger;
-        this.props.history.push(`/students/${newStudentKey}`);
+        newStudent && this.props.history.push(`/students/${newStudent.maSv}`);
     }
 
     render() {

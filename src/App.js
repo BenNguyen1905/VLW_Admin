@@ -1,20 +1,24 @@
-// eslint-disable-next-line
-import React, { Component } from 'react';
+import React, { Suspense } from 'react';
+import { FirebaseAppProvider } from 'reactfire';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import firebase from './data-store/firebase';
+
+import firebaseConfig from './data-store/firebase-config';
 import Routes from './Routes';
 
 
 export default function App() {
-  return(
-      <Routes/>
-  )
+    return(
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+                <Routes/>
+        </FirebaseAppProvider>
+    )
 };
 
 
+/*
 class DetailForm extends Component {
   static defaultProps = {
     data: {},
@@ -38,7 +42,6 @@ class DetailForm extends Component {
       khoa: data.khoa || 'CNTT',
       viId: data.viId,
       sodu: data.sodu,
-      matKhau: data.matKhau,
     };
     this.onItemChange = this.itemChange.bind(this);
   }
@@ -58,7 +61,6 @@ class DetailForm extends Component {
     );
   }
 }
-
 
 class NewItem extends Component {
 
@@ -238,3 +240,5 @@ class AppOld extends Component {
     );
   }
 }
+
+//*/

@@ -2,10 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import DefaultLayout from "./layouts/DefaultLayout"
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/auth/LoginPage";
 import StudentListPage from "./pages/students/StudentListPage";
 import StudentEditPage from "./pages/students/StudentEditPage";
 import StudentCreatePage from "./pages/students/StudentCreatePage";
-import LoginPage from "./pages/auth/LoginPage";
 
 
 function routeWithLayout(Layout) {
@@ -25,12 +26,13 @@ const Routes = () => (
 	<Router>
 		<Switch>
 			<Route path="/" exact>
-                <Redirect to="/students" />
+                <Redirect to="/dashboard" />
             </Route>
-			<RouteDefault path="/students/login" exact component={LoginPage}/>
+			<RouteDefault path="/dashboard" exact component={HomePage} />
 			<RouteDefault path="/students" exact component={StudentListPage} />
 			<RouteDefault path="/students/create" exact component={StudentCreatePage} />
-			<RouteDefault path="/students/:id" exact component={StudentEditPage} />
+			<RouteDefault path="/students/:maSv" exact component={StudentEditPage} />
+			<RouteDefault path="/login" exact component={LoginPage} />
 
 			{/* <RouteDefault
 				component={NotFoundPage}

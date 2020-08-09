@@ -16,7 +16,7 @@ const DefaultLayout = ({ children ,}) => (
       </picture>
     </div> */}
 
-    {children}
+        {children}
     </Container>
 );
 export default DefaultLayout;

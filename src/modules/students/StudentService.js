@@ -1,53 +1,69 @@
 import firebase from '../../data-store/firebase';
+import accountSvc from '../auth/AccountService';
 
 
 class StudentService {
-    constructor() {
-        this._dbRoot = firebase.database().ref();
-        this._dbStudents = this._dbRoot.child('SINHVIEN');
-        this._dbWallets = this._dbRoot.child('TAIKHOANVI');
-    }
 
-    getList() {
-        return new Promise((resolve, reject) => {
-            this._dbStudents.once('value', dataSnapshot => {
-                const students = [];
-                
-                dataSnapshot.forEach(function(childSnapshot) {
-                    const item = childSnapshot.val();
-                    item.key = childSnapshot.key;
-                    students.push(item);
-                });
+    async getList() {
+        let snapshot = await firebase.students().get();
+        if (snapshot.empty) return [];
+
+        const students = snapshot.docs.map(d => d.data());
+        // students = [{ maSv: '', accountId: 'abc' }, { maSv: '', accountId: 'xyz' }];
+
+        const accountIds = students.map(st => st.accountId);
+        // accountIds = ['abc', 'xyz'];
         
-                resolve(students);
-            });
+        snapshot = await firebase.accounts().where('uid', 'in', accountIds).get();
+        const accounts = snapshot.docs.map(d => d.data());
+        // accounts = [{ email: '', uid: 'abc' }, { email: '', uid: 'xyz' }];
+
+        students.forEach(st => {
+            const acc = accounts.find(a => a.uid === st.accountId);
+            st.account = acc;
         });
         
+        return students;
     }
 
-    getById(id) {
-        return new Promise((resolve, reject) => {
-            this._dbStudents.child(id).once('value', (snapShot) => {
-                // console.log({ snapShot });
-                const student = snapShot.val();
+    async getByMaSv(maSv) {
+        const snapshot = await firebase.student(maSv).get();
+        return snapshot.empty ? null: snapshot.data();
+    }
 
-                this._dbWallets.child(student.viId).once('value', walletSnapshot => {
-                    const wallet = walletSnapshot.val();
-                    student.sodu = wallet.sodu;
-                    resolve(student);
-                });
-            });
+    async create(formValues) {
+        const {
+            email,
+            password,
+            passwordConfirmation, // remove from "student"
+            role,
+            soDu,
+            ...newStudent
+        } = formValues;
+        debugger;
+        const newAccount = await accountSvc.create({
+            email,
+            password,
+            displayName: newStudent.tenSv,
+            role,
         });
+
+        newStudent.accountId = newAccount.uid;
+        newStudent.wallet = {
+            soDu,
+            history: [],
+        };
+        await firebase.student(newStudent.maSv).set(newStudent);
+        return newStudent;
     }
 
-    async create(model) {
-        const { sodu, ...student } = model;
-        const newWalletRef = this._dbWallets.push();
-        await newWalletRef.set({ sodu })
-        const newStudentRef = this._dbStudents.push();
-        student.viId = newWalletRef.key;
-        await newStudentRef.set(student);
-        return newStudentRef.key;
+    async update(formValues) {
+        const {
+            accountId, // Remove from "student"
+            wallet,
+            ...student
+        } = formValues;
+        await firebase.student(formValues.maSv).set(student);
     }
 }
 

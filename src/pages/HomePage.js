@@ -1,16 +1,12 @@
 import React from "react";
 import {Row, Col} from "react-bootstrap";
-// import { Link } from 'react-router-dom';
-
-
-// import LoginForm from "../../modules/auth/auth-buttons";
 
 
 export default function LoginPage(){
     return (
         <Row>
             <Col md={12} className="mb-4">
-                {/* <LoginForm /> */}
+                <h1>Welcome, please choose a page to go in top bar.</h1>
             </Col>
         </Row>
     );

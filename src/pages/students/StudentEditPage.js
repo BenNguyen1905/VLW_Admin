@@ -14,7 +14,7 @@ export default class StudentEditPage extends Component{
           <Row>
           <Col as="h3" md={12} className="mt-5 mb-4">Cập Nhật Tài Khoản</Col>
           <Col md={12} className="mb-4">
-            <StudentDetailForm id={params.id}/>
+            <StudentDetailForm maSv={params.maSv}/>
           </Col>
         </Row>
       );
