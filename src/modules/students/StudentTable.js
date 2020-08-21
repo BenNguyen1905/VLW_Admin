@@ -123,7 +123,7 @@ export default class StudentTable extends Component{
                             <th>Mã Sinh Viên</th>
                             <th>Họ Tên</th>
                             <th>Lớp</th>
-                            <th>Email</th>
+                            {/* <th>Email</th> */}
                             <th>CMND</th>
                             <th>Số Dư</th>
                             <th>Khoa</th>
@@ -137,7 +137,7 @@ export default class StudentTable extends Component{
                                 <td>{st.maSv}</td>
                                 <td>{st.tenSv}</td>
                                 <td>{st.lop}</td>
-                                <td>{st.account?.email}</td>
+                                {/* <td>{st.email}</td> */}
                                 <td>{st.cmnd}</td>
                                 <td>{st.wallet?.soDu}</td>
                                 <td>{st.khoa}</td>
